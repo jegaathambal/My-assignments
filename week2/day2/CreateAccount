@@ -1,0 +1,87 @@
+package week2.day2;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class CreateAccount {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// launch the browser
+		ChromeDriver driver = new ChromeDriver();
+		
+		// maximize the browser
+		driver.manage().window().maximize();
+		
+		// load the application url
+		driver.get("http://leaftaps.com/opentaps/");
+		
+		//locate the username field
+		WebElement usernameField = driver.findElement(By.id("username"));	
+		
+		// enter the input as demosalesmanager for usernamefield
+		usernameField.sendKeys("demosalesmanager");
+		
+		//locate the password field and enter the password
+		driver.findElement(By.name("PASSWORD")).sendKeys("crmsfa");
+	    
+		//enter the login page
+		driver.findElement(By.className("decorativeSubmit")).click();
+		
+		//to get the title of the webpage
+		String title = driver.getTitle();
+		System.out.println("Title is" +title);
+		
+		// locate the CRM/ SFA and click
+		driver.findElement(By.linkText("CRM/SFA")).click();
+		
+		// locate the Accounts tab and click
+		driver.findElement(By.linkText("Accounts")).click();
+		
+		// locate the CreateAccount link and click
+		driver.findElement(By.linkText("Create Account")).click();
+		
+		// locate the company name field and enter the company name as 
+		driver.findElement(By.id("accountName")).sendKeys("Selenium_Automation_Tester_Jegathambal");
+		
+		//locate the industry dropdown and select Computer Software
+		WebElement industryEle = driver.findElement(By.name("industryEnumId"));
+		Select industryDD = new Select(industryEle);
+		industryDD.selectByVisibleText("Computer Software");
+				
+		//locate the ownership dropdown and select S-Corporation
+		WebElement ownershipEle = driver.findElement(By.name("ownershipEnumId"));
+		Select ownershipDD = new Select(ownershipEle);
+		ownershipDD.selectByVisibleText("S-Corporation");
+		
+		//locate the marketing campaign and select ecommerce
+		WebElement marketingEle = driver.findElement(By.id("marketingCampaignId"));
+		Select marketingDD = new Select(marketingEle);
+		marketingDD.selectByIndex(6);
+	
+		
+		//locate the Source and select Lead_Employee
+		WebElement SourceEle = driver.findElement(By.id("dataSourceId"));
+		Select sourceDD = new Select(SourceEle);
+		sourceDD.selectByValue("LEAD_EMPLOYEE");
+		
+		//locate the stateprovince and select Texas
+		WebElement StateProvinceEle = driver.findElement(By.id("generalStateProvinceGeoId"));
+		Select stateprovinceDD = new Select(StateProvinceEle);
+		stateprovinceDD.selectByValue("TX");
+		
+		
+		//locate the create lead button and click
+	    driver.findElement(By.className("smallSubmit")).click();
+        System.out.println(driver.getTitle());
+			
+		
+        //close the browser window
+		driver.close();
+
+	
+	}
+
+}
