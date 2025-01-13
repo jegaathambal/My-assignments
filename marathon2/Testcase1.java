@@ -81,24 +81,38 @@ public class Testcase1 {
 			driver.findElement(By.xpath("//div[@class='ProductModule__dummyDiv']")).click();
 			
 			
-			//9. Handle Alert Pop Up
-			
-			
-			
-			//9. compare two price are similar
-			
-			
-			
-			//10. click Add to cart and get count from the cart icon.
-			
+			String text2 = driver.findElement(By.xpath("(//div[@class='ProductDescription__priceHolder']/h3)[1]"))
+					.getText();
+			String replaceText1 = text2.replaceAll("\\D", "");
+
+			System.out.println("watch price:" + replaceText1);
 			
 			Set<String> allWindows = driver.getWindowHandles();
 			List<String> allhandles = new ArrayList<String>(allWindows);
 			driver.switchTo().window(allhandles.get(1));
 			
+			
+			
+			//9. compare two price are similar
+			String text = driver.findElement(By.xpath("//div[@class='ProductDetailsMainCard__price']/h3")).getText();
+			String replaceText2 = text.replaceAll("\\D", "");
+			System.out.println("watch price in the bag   :"+replaceText2);
+			// check two price are similar
+			if (replaceText1.contains(replaceText2)) {
+				System.out.println("Both price are equal");
+			} else {
+				System.out.println("Not equal");
+			}
+
+			
+			
+			//10. click Add to cart and get count from the cart icon.
+			
+			
 			Thread.sleep(1000);
 			
 			driver.findElement(By.xpath("//span[text()='ADD TO BAG']")).click();
+			
 			List<WebElement> cartcount = driver.findElements(By.xpath("//span[@class='DesktopHeader__cartCount']"));
 			System.out.println(cartcount.size());
 			//for(WebElement amount : cartcount){
@@ -114,7 +128,7 @@ public class Testcase1 {
 			// take screenshot
 			File screenshot = driver.getScreenshotAs(OutputType.FILE);
 			//choose location, filename and extension
-			File location = new File("./snaps/snapshot.png");
+			File location = new File("./snaps/snapshot1.png");
 			//save the Screenshot
 			FileUtils.copyFile(screenshot, location);
 			
